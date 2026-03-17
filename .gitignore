@@ -12,6 +12,8 @@ __pycache__/
 dist/
 build/
 .eggs/
+~/.pypirc
+
 
 # Datos locales del usuario
 .biblia-cli/
