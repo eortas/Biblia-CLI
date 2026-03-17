@@ -33,6 +33,10 @@ class BibliaApp(App):
         Binding("f",      "open_favs",    "[F] Marcadores"),
         Binding("n",      "add_note",     "[N] Nota"),
         Binding("h",      "read_ann",     "[H] ✦ Leer"),
+<<<<<<< HEAD
+=======
+        Binding("ctrl+h", "write_ann",    "[^H] ✦ Escribir"),
+>>>>>>> a5a4cdd (v1)
         Binding("d",      "daily",        "[D] Lectura hoy"),
         Binding("escape", "clear_filter", "Limpiar"),
     ]
