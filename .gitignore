@@ -1,0 +1,34 @@
+# Secretos — NUNCA al repo
+.env
+admin_annotations.py
+cargar_anotaciones.py
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+~/.pypirc
+
+
+# Datos locales del usuario
+.biblia-cli/
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Windows
+Thumbs.db
+desktop.ini

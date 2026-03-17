@@ -1,0 +1,4 @@
+[[apps]]
+name = "Biblia CLI"
+command = "biblia"
+slug = "biblia-cli"

@@ -1,0 +1,59 @@
+Screen   { background: #111111; }
+Header   { background: #1a1a1a; color: #d4a017; text-style: bold; }
+Footer   { background: #1a1a1a; color: #666666; }
+#main    { height: 1fr; }
+#books-panel    { width: 22%; min-width: 20; border: solid #333333; padding: 0 1; background: #0e0e0e; }
+#chapters-panel { width: 10%; min-width: 9;  border: solid #333333; padding: 0 1; background: #0e0e0e; }
+#scripture-panel{ width: 1fr; border: solid #333333; padding: 1 2; background: #0a0a0a; }
+.panel-title { text-style: bold; color: #d4a017; text-align: center; width: 100%; padding: 0 0 1 0; border-bottom: solid #2a2a2a; }
+#books-filter { margin-bottom: 1; }
+#scripture-title { text-style: bold; color: #d4a017; margin-bottom: 0; }
+#fav-indicator { color: #d4a017; height: 1; }
+#scripture-content { width: 100%; padding-top: 1; }
+ListItem { padding: 0 1; color: #bbbbbb; }
+ListView:focus > ListItem.--highlight { background: #2a2010; color: #ffffff; }
+Input:focus { border: solid #d4a017; }
+
+Screen.theme-light { background: #f4f4f4 !important; }
+.theme-light Header { background: #e0e0e0 !important; color: #333333 !important; }
+.theme-light Footer { background: #a0a0a0 !important; color: #000000 !important; padding: 0 1; }
+.theme-light Footer > .footer--key { background: #1a5fa8 !important; color: #ffffff !important; text-style: bold; margin: 0 1; }
+.theme-light Footer > .footer--description { color: #000000 !important; padding-right: 1; }
+.theme-light Footer > .footer--highlight { background: #1a5fa8 !important; }
+.theme-light #books-panel, .theme-light #chapters-panel,
+.theme-light #scripture-panel, .theme-light ListView { background: #ffffff !important; border: solid #cccccc !important; color: #222222 !important; }
+.theme-light .panel-title { color: #1a5fa8 !important; border-bottom: solid #dddddd !important; }
+.theme-light #scripture-title { color: #1a5fa8 !important; }
+.theme-light ListItem { color: #333333 !important; background: transparent !important; }
+.theme-light ListItem.--highlight { background: #cfcfcf !important; color: #000000 !important; border: solid #1a5fa8; }
+.theme-light ListView:focus > ListItem.--highlight { background: #1a5fa8 !important; color: #ffffff !important; border: none; }
+.theme-light Input { background: #ffffff !important; border: solid #cccccc !important; color: #222222 !important; }
+.theme-light Input:focus { border: solid #1a5fa8 !important; }
+
+Screen.theme-sepia { background: #1c1208 !important; }
+.theme-sepia Header { background: #140d04 !important; color: #c8922a !important; }
+.theme-sepia Footer { background: #140d04 !important; color: #7a5c2a !important; }
+.theme-sepia Footer > .footer--key { color: #c8922a !important; }
+.theme-sepia Footer > .footer--description { color: #d4b483 !important; }
+.theme-sepia #books-panel, .theme-sepia #chapters-panel,
+.theme-sepia #scripture-panel { background: #160e05 !important; border: solid #4a3010 !important; color: #d4b483 !important; }
+.theme-sepia .panel-title { color: #c8922a !important; border-bottom: solid #3a2008 !important; }
+.theme-sepia #scripture-title { color: #c8922a !important; }
+.theme-sepia ListItem { color: #c0a060 !important; }
+.theme-sepia ListView:focus > ListItem.--highlight { background: #3a2008 !important; color: #f0d090 !important; }
+.theme-sepia Input { background: #160e05 !important; border: solid #4a3010 !important; color: #d4b483 !important; }
+.theme-sepia Input:focus { border: solid #c8922a !important; }
+
+Screen.theme-matrix { background: #000a00 !important; }
+.theme-matrix Header { background: #000500 !important; color: #00ff41 !important; }
+.theme-matrix Footer { background: #000500 !important; color: #007a1f !important; }
+.theme-matrix Footer > .footer--key { color: #00ff41 !important; }
+.theme-matrix Footer > .footer--description { color: #00cc33 !important; }
+.theme-matrix #books-panel, .theme-matrix #chapters-panel,
+.theme-matrix #scripture-panel { background: #000800 !important; border: solid #006600 !important; color: #00cc33 !important; }
+.theme-matrix .panel-title { color: #00ff41 !important; text-style: bold !important; border-bottom: solid #004400 !important; }
+.theme-matrix #scripture-title { color: #00ff41 !important; }
+.theme-matrix ListItem { color: #00bb30 !important; }
+.theme-matrix ListView:focus > ListItem.--highlight { background: #003300 !important; color: #00ff41 !important; }
+.theme-matrix Input { background: #000800 !important; border: solid #006600 !important; color: #00cc33 !important; }
+.theme-matrix Input:focus { border: solid #00ff41 !important; }
