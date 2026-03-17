@@ -13,10 +13,7 @@ Footer   { background: #1a1a1a; color: #666666; }
 ListItem { padding: 0 1; color: #bbbbbb; }
 ListView:focus > ListItem.--highlight { background: #2a2010; color: #ffffff; }
 Input:focus { border: solid #d4a017; }
-<<<<<<< HEAD
 #books-panel:focus-within, #chapters-panel:focus-within, #scripture-panel:focus-within { border: solid #d4a017; }
-=======
->>>>>>> a5a4cdd (v1)
 
 Screen.theme-light { background: #f4f4f4 !important; }
 .theme-light Header { background: #e0e0e0 !important; color: #333333 !important; }
@@ -28,19 +25,12 @@ Screen.theme-light { background: #f4f4f4 !important; }
 .theme-light #scripture-panel, .theme-light ListView { background: #ffffff !important; border: solid #cccccc !important; color: #222222 !important; }
 .theme-light .panel-title { color: #1a5fa8 !important; border-bottom: solid #dddddd !important; }
 .theme-light #scripture-title { color: #1a5fa8 !important; }
-<<<<<<< HEAD
 .theme-light ListItem { color: #333333 !important; }
-.theme-light ListView:focus > ListItem.--highlight { background: #1a5fa8 !important; color: #ffffff !important; border: none; }
-.theme-light Input { background: #ffffff !important; border: solid #cccccc !important; color: #222222 !important; }
-.theme-light Input:focus { border: solid #1a5fa8 !important; }
-.theme-light #books-panel:focus-within, .theme-light #chapters-panel:focus-within, .theme-light #scripture-panel:focus-within { border: solid #1a5fa8 !important; }
-=======
-.theme-light ListItem { color: #333333 !important; background: transparent !important; }
 .theme-light ListItem.--highlight { background: #cfcfcf !important; color: #000000 !important; border: solid #1a5fa8; }
 .theme-light ListView:focus > ListItem.--highlight { background: #1a5fa8 !important; color: #ffffff !important; border: none; }
 .theme-light Input { background: #ffffff !important; border: solid #cccccc !important; color: #222222 !important; }
 .theme-light Input:focus { border: solid #1a5fa8 !important; }
->>>>>>> a5a4cdd (v1)
+.theme-light #books-panel:focus-within, .theme-light #chapters-panel:focus-within, .theme-light #scripture-panel:focus-within { border: solid #1a5fa8 !important; }
 
 Screen.theme-sepia { background: #1c1208 !important; }
 .theme-sepia Header { background: #140d04 !important; color: #c8922a !important; }
@@ -55,10 +45,7 @@ Screen.theme-sepia { background: #1c1208 !important; }
 .theme-sepia ListView:focus > ListItem.--highlight { background: #3a2008 !important; color: #f0d090 !important; }
 .theme-sepia Input { background: #160e05 !important; border: solid #4a3010 !important; color: #d4b483 !important; }
 .theme-sepia Input:focus { border: solid #c8922a !important; }
-<<<<<<< HEAD
 .theme-sepia #books-panel:focus-within, .theme-sepia #chapters-panel:focus-within, .theme-sepia #scripture-panel:focus-within { border: solid #c8922a !important; }
-=======
->>>>>>> a5a4cdd (v1)
 
 Screen.theme-matrix { background: #000a00 !important; }
 .theme-matrix Header { background: #000500 !important; color: #00ff41 !important; }
@@ -72,9 +59,5 @@ Screen.theme-matrix { background: #000a00 !important; }
 .theme-matrix ListItem { color: #00bb30 !important; }
 .theme-matrix ListView:focus > ListItem.--highlight { background: #003300 !important; color: #00ff41 !important; }
 .theme-matrix Input { background: #000800 !important; border: solid #006600 !important; color: #00cc33 !important; }
-<<<<<<< HEAD
 .theme-matrix Input:focus { border: solid #00ff41 !important; }
 .theme-matrix #books-panel:focus-within, .theme-matrix #chapters-panel:focus-within, .theme-matrix #scripture-panel:focus-within { border: solid #00ff41 !important; }
-=======
-.theme-matrix Input:focus { border: solid #00ff41 !important; }
->>>>>>> a5a4cdd (v1)

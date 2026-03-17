@@ -56,8 +56,4 @@ Biblia CLI no es solo software, es una declaración de intenciones. Es la unión
 > "Lámpara es a mis pies tu palabra, Y lumbrera a mi camino." — Salmos 119:105
 
 ---
-<<<<<<< HEAD
 © 2026 - Biblia CLI Project. Built with love for the Glory of Christ, made in Katowice, Poland, born in Basque Country.
-=======
-© 2026 - Biblia CLI Project. Built with love for the Glory of Christ, made in Katowice, Poland, born in Basque Country.
->>>>>>> a5a4cdd (v1)
