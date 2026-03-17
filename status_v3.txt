@@ -1,0 +1,29 @@
+On branch main
+Your branch and 'Biblia-CLI/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+Last command done (1 command done):
+   pick a5a4cdd # v1
+No commands remaining.
+You are currently rebasing branch 'main' on '6af549d'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git restore --staged <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+	both added:      README.md
+	both added:      biblia_cli/app.py
+	both added:      biblia_cli/css/app.tcss
+	both added:      biblia_cli/widgets/annotation_modal.py
+	both added:      pyproject.toml
+	both added:      serve.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	status_v2.txt
+	status_v3.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
