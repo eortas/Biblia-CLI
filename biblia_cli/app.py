@@ -14,7 +14,7 @@ from .favorites import toggle as fav_toggle, is_favorite
 from .notes import get_chapter_notes
 from .annotations import get_chapter as ann_get_chapter
 from .themes import next_theme, LABELS
-from .widgets.annotation_modal import AnnotationReadModal, AnnotationWriteModal
+from .widgets.annotation_modal import AnnotationReadModal
 from .widgets.favorites_modal import FavoritesModal
 from .widgets.note_modal import NoteModal
 from .widgets.search_modal import SearchModal
@@ -33,10 +33,6 @@ class BibliaApp(App):
         Binding("f",      "open_favs",    "[F] Marcadores"),
         Binding("n",      "add_note",     "[N] Nota"),
         Binding("h",      "read_ann",     "[H] ✦ Leer"),
-<<<<<<< HEAD
-=======
-        Binding("ctrl+h", "write_ann",    "[^H] ✦ Escribir"),
->>>>>>> a5a4cdd (v1)
         Binding("d",      "daily",        "[D] Lectura hoy"),
         Binding("escape", "clear_filter", "Limpiar"),
     ]
@@ -197,11 +193,6 @@ class BibliaApp(App):
         ann=await ann_get_chapter(self.translation,self.book["bookid"],self.chapter)
         if verse in ann: self.push_screen(AnnotationReadModal(self.book["name"],self.chapter,verse,ann[verse]))
         else: self.notify(f"No hay nota ✦ en el versículo {verse}.",timeout=2)
-    def action_write_ann(self):
-        if not self.book: self.notify("Abre un capítulo primero.",timeout=2); return
-        self.push_screen(_VP(self.book["name"],self.chapter,"✦  Nota de autor en"),self._open_ann_write)
-    def _open_ann_write(self,verse):
-        if verse: self.push_screen(AnnotationWriteModal(self.translation,self.book["bookid"],self.book["name"],self.chapter,verse),lambda c: self.load_scripture() if c else None)
     def action_daily(self): self._do_daily()
     @work(exclusive=True)
     async def _do_daily(self):
