@@ -1,4 +1,9 @@
 from textual_serve.server import Server
 
-server = Server("python main.py")  # el comando que lanza tu app
+import os
+from textual_serve.server import Server
+
+port = int(os.environ.get("PORT", 8000))
+server = Server("python main.py", port=port)
 server.serve()
+
