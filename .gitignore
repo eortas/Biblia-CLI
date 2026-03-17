@@ -1,34 +1,16 @@
-# Secretos — NUNCA al repo
 .env
-admin_annotations.py
-cargar_anotaciones.py
-
-# Python
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.egg-info/
-dist/
-build/
-.eggs/
-~/.pypirc
-
-
-# Datos locales del usuario
-.biblia-cli/
-
-# Entornos virtuales
-.venv/
-venv/
-env/
-
-# IDEs
-.vscode/
 .idea/
-*.suo
-*.user
-
-# Windows
-Thumbs.db
-desktop.ini
+.vscode/
+build/
+dist/
+*.egg-info/
+push_error.txt
+push_error_full.txt
+last_push_full.txt
+file_sizes.csv
+remote_files.txt
+local_files.txt
+push_output.txt
+full_push_log.txt
