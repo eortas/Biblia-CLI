@@ -7,7 +7,7 @@ name = "biblia-cli"
 version = "0.1.1"
 description = "📖 Lee la Biblia en tu terminal — Castellano & Português"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = ["textual>=0.70.0","httpx>=0.27.0","supabase>=2.0.0"]
 
 [project.scripts]
