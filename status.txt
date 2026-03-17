@@ -1,0 +1,43 @@
+On branch main
+Your branch is up to date with 'Biblia-CLI/main'.
+
+No commands done.
+Next command to do (1 remaining command):
+   pick a5a4cdd # v1
+  (use "git rebase --edit-todo" to view and edit)
+You are currently editing a commit while rebasing branch 'main' on '6af549d'.
+  (use "git commit --amend" to amend the current commit)
+  (use "git rebase --continue" once you are satisfied with your changes)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .gitignore
+	modified:   biblia_cli/widgets/annotation_modal.py
+	deleted:    dist/biblia_cli-0.1.1-py3-none-any.whl
+	deleted:    dist/biblia_cli-0.1.1.tar.gz
+	modified:   pyproject.toml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.env.example
+	biblia_cli/__init__.py
+	biblia_cli/annotations.py
+	biblia_cli/api/
+	biblia_cli/app.py
+	biblia_cli/book_names.py
+	biblia_cli/cache.py
+	biblia_cli/config.py
+	biblia_cli/css/
+	biblia_cli/favorites.py
+	biblia_cli/main.py
+	biblia_cli/notes.py
+	biblia_cli/overrides.py
+	biblia_cli/pipe_mode.py
+	biblia_cli/settings.py
+	biblia_cli/themes.py
+	biblia_cli/widgets/__init__.py
+	biblia_cli/widgets/override_modal.py
+	status.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")

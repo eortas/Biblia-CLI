@@ -4,15 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biblia-cli"
-version = "0.1.1"
+version = "0.1.2"
 description = "📖 Lee la Biblia en tu terminal — Castellano & Português"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["textual>=0.70.0","httpx>=0.27.0","supabase>=2.0.0"]
+dependencies = ["textual>=0.70.0","httpx>=0.27.0","supabase>=2.0.0","python-dotenv>=1.0.0"]
 
 [project.scripts]
-biblia = "main:main"
+biblia = "biblia_cli.main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["biblia_cli"]
-include   = ["main.py"]
