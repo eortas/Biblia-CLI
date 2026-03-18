@@ -1,13 +1,12 @@
 import traceback
 import sys
+from biblia_cli.app import BibliaApp
 
 try:
-    from biblia_cli.app import BibliaApp
-    print("BibliaApp importada OK", flush=True)
     app = BibliaApp()
-    print("BibliaApp instanciada OK", flush=True)
     app.run()
 except Exception as e:
-    print(f"ERROR: {e}", flush=True)
-    traceback.print_exc()
+    with open("error.log", "a") as f:
+        f.write(f"ERROR: {e}\n")
+        traceback.print_exc(file=f)
     sys.exit(1)
