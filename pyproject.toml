@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biblia-cli"
-version = "0.1.2"
+version = "0.1.3"
 description = "📖 Lee la Biblia en tu terminal — Castellano & Português"
 readme = "README.md"
 requires-python = ">=3.11"
