@@ -199,27 +199,17 @@ class BibliaApp(App):
         if not self.books: return
         self.notify("⏳ Obteniendo lectura litúrgica...", timeout=2)
         try:
-            import json, re
-            async with httpx.AsyncClient(timeout=10, follow_redirects=True) as c:
-                r = await c.get("https://universalis.com/Europe.Spain/jsonpmass.js")
-                r.raise_for_status()
-                txt = r.text
-                mj = re.search(r"universalisCallback\((.*)\);", txt, re.DOTALL)
-                if not mj: raise Exception("Error de formato")
-                data = json.loads(mj.group(1))
-                src = data.get("Mass_R1",{}).get("source","")
-                if not src: src = data.get("Mass_G",{}).get("source","")
-                m = re.search(r"^([1-3]?\s?[a-zA-Z\s]+)\s+(\d+)", src)
-                if not m: raise Exception(f"No parseable: {src}")
-                bname, ch = m.group(1).strip(), int(m.group(2))
-                from .book_names import resolve_book
-                bid = resolve_book(bname)
-                if not bid: raise Exception(f"No reconozco {bname}")
-                tgt = next((b for b in self.books if b["bookid"]==bid),None)
-                if not tgt: raise Exception(f"{bname} no disponible")
-                self.book=tgt; self.chapter=ch; self._fill_chapters(tgt["chapters"],ch); self.load_scripture()
-                self.notify(f"📖 {src}", timeout=3)
-        except Exception as e: self.notify(f"Error lectura: {e}", severity="error")
+            from .daily_reading import get_daily_reading
+            bid, ch, src = await get_daily_reading()
+            
+            tgt = next((b for b in self.books if b["bookid"]==bid), None)
+            if not tgt:
+                raise Exception(f"Libro {bid} no disponible en esta traducción")
+                
+            self.book=tgt; self.chapter=ch; self._fill_chapters(tgt["chapters"],ch); self.load_scripture()
+            self.notify(f"📖 {src}", timeout=3)
+        except Exception as e:
+            self.notify(f"Error lectura: {e}", severity="error")
     def action_clear_filter(self):
         f=self.query_one("#books-filter",Input)
         if f.value: f.value=""; self.filter_books(Input.Changed(f,""))

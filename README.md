@@ -34,6 +34,14 @@ Una vez instalado, simplemente escribe en tu terminal:
 biblia
 ```
 
+### 💻 Uso desde Consola (Modo Pipe)
+Para los que prefieren la velocidad del terminal sin entrar en el modo interactivo:
+*   **Lectura del día**: `biblia dia` (Conecta con la liturgia de hoy)
+*   **Versículos específicos**: `biblia juan 3:16` o `biblia juan 3:20`
+*   **Rangos de versículos**: `biblia juan 3:16-21`
+*   **Capítulo completo**: `biblia salmos 23`
+*   **Búsqueda de texto**: `biblia buscar "amor"`
+
 ---
 
 ## ⌨️ Domina el Arca (Atajos de Teclado)

@@ -8,6 +8,7 @@ def run(args, translation): asyncio.run(_run(args, translation))
 
 async def _run(args, translation):
     client = BollsClient(); lang = lang_for_translation(translation)
+    names = {bid:(es if lang=="es" else pt) for bid,es,pt,_ in BOOKS}
     cmd = (args[0] if args else "").lower()
     if not args or cmd in ("-h","--help","ayuda"):
         print("""
@@ -16,6 +17,7 @@ async def _run(args, translation):
     biblia juan 3:16           → versículo
     biblia juan 3:14-17        → rango
     biblia salmos 23           → capítulo completo
+    biblia dia                 → lectura del día
     biblia buscar "texto"      → búsqueda
     biblia libros              → 66 libros
     biblia cache               → capítulos offline
@@ -38,29 +40,38 @@ async def _run(args, translation):
         try:
             data = await client.search(translation, query, limit=10)
             results = data.get("results",[])
-            names = {bid:(es if lang=="es" else pt) for bid,es,pt,_ in BOOKS}
             print(f"  {len(results)} de {data.get('total',0)} resultados\n")
             for r in results:
                 print(f"  [{names.get(r['book'],str(r['book']))} {r['chapter']}:{r['verse']}]")
                 print(f"  {r['text']}\n")
         except Exception as e: print(f"  Error: {e}", file=sys.stderr)
         return
-    book_part, ref_part = cmd, ""
-    for i in range(1, len(args)):
-        t = args[i]
-        if ":" in t or t.isdigit(): ref_part = t; break
-        book_part += " " + t
-    book_id = resolve_book(book_part.strip(), lang)
-    if not book_id: print(f"  Libro no encontrado: '{book_part.strip()}'."); return
-    names = {bid:(es if lang=="es" else pt) for bid,es,pt,_ in BOOKS}
-    chapter, vs, ve = 1, None, None
-    if ref_part:
-        if ":" in ref_part:
-            ch_s,v_s = ref_part.split(":",1); chapter = int(ch_s) if ch_s.isdigit() else 1
-            if "-" in v_s:
-                a,b = v_s.split("-",1); vs,ve = (int(a) if a.isdigit() else None),(int(b) if b.isdigit() else None)
-            elif v_s.isdigit(): vs = ve = int(v_s)
-        elif ref_part.isdigit(): chapter = int(ref_part)
+    vs, ve = None, None
+    if cmd in ("dia", "day", "lectura"):
+        print(f"\n  Obteniendo lectura del día para {translation}...")
+        try:
+            from .daily_reading import get_daily_reading
+            book_id, chapter, src = await get_daily_reading()
+            print(f"  Lectura: {src}\n")
+        except Exception as e:
+            print(f"  Error: {e}", file=sys.stderr)
+            return
+    else:
+        book_part, ref_part = cmd, ""
+        for i in range(1, len(args)):
+            t = args[i]
+            if ":" in t or t.isdigit(): ref_part = t; break
+            book_part += " " + t
+        book_id = resolve_book(book_part.strip(), lang)
+        if not book_id: print(f"  Libro no encontrado: '{book_part.strip()}'."); return
+        chapter = 1
+        if ref_part:
+            if ":" in ref_part:
+                ch_s,v_s = ref_part.split(":",1); chapter = int(ch_s) if ch_s.isdigit() else 1
+                if "-" in v_s:
+                    a,b = v_s.split("-",1); vs,ve = (int(a) if a.isdigit() else None),(int(b) if b.isdigit() else None)
+                elif v_s.isdigit(): vs = ve = int(v_s)
+            elif ref_part.isdigit(): chapter = int(ref_part)
     try: verses = await client.get_chapter(translation, book_id, chapter)
     except Exception as e: print(f"  Error: {e}", file=sys.stderr); return
     if vs: verses = [v for v in verses if vs <= v["verse"] <= (ve or vs)]
