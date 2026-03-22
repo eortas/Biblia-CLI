@@ -48,14 +48,31 @@ async def _run(args, translation):
         return
     vs, ve = None, None
     if cmd in ("dia", "day", "lectura"):
-        print(f"\n  Obteniendo lectura del día para {translation}...")
+        sub = (args[1] if len(args) > 1 else "").lower()
+        print(f"\n  Obteniendo lecturas del día para {translation}...")
         try:
-            from .daily_reading import get_daily_reading
-            book_id, chapter, src = await get_daily_reading()
-            print(f"  Lectura: {src}\n")
+            from .daily_reading import get_daily_readings
+            results = await get_daily_readings()
+            
+            sel = results[0]  # default
+            if sub:
+                for r in results:
+                    if sub in r["label"].lower() or sub in r["source"].lower():
+                        sel = r; break
+                else: 
+                    # check if sub is an index
+                    if sub.isdigit() and 1 <= int(sub) <= len(results):
+                        sel = results[int(sub)-1]
+            
+            book_id, chapter, src = sel["book_id"], sel["chapter"], sel["source"]
+            print(f"  [{sel['label']}] {src}\n")
+            if not sub and len(results) > 1:
+                print("  Otras lecturas disponibles:")
+                for i, r in enumerate(results[1:], 2):
+                    print(f"    - {r['label']}: {r['source']} (usa 'biblia dia {i}' o 'biblia dia {r['label'].split()[0].lower()}')")
+                print()
         except Exception as e:
-            print(f"  Error: {e}", file=sys.stderr)
-            return
+            print(f"  Error: {e}", file=sys.stderr); return
     else:
         book_part, ref_part = cmd, ""
         for i in range(1, len(args)):

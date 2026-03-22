@@ -199,17 +199,29 @@ class BibliaApp(App):
         if not self.books: return
         self.notify("⏳ Obteniendo lectura litúrgica...", timeout=2)
         try:
-            from .daily_reading import get_daily_reading
-            bid, ch, src = await get_daily_reading()
+            from .daily_reading import get_daily_readings
+            from .widgets.daily_selection_modal import DailySelectionModal
             
-            tgt = next((b for b in self.books if b["bookid"]==bid), None)
-            if not tgt:
-                raise Exception(f"Libro {bid} no disponible en esta traducción")
+            readings = await get_daily_readings()
+            
+            if len(readings) == 1:
+                self._apply_daily(readings[0])
+            else:
+                self.push_screen(DailySelectionModal(readings), self._apply_daily)
                 
-            self.book=tgt; self.chapter=ch; self._fill_chapters(tgt["chapters"],ch); self.load_scripture()
-            self.notify(f"📖 {src}", timeout=3)
         except Exception as e:
             self.notify(f"Error lectura: {e}", severity="error")
+
+    def _apply_daily(self, selection):
+        if not selection: return
+        bid, ch, src = selection["book_id"], selection["chapter"], selection["source"]
+        tgt = next((b for b in self.books if b["bookid"]==bid), None)
+        if not tgt:
+            self.notify(f"Libro {bid} no disponible en esta traducción", severity="error")
+            return
+            
+        self.book=tgt; self.chapter=ch; self._fill_chapters(tgt["chapters"],ch); self.load_scripture()
+        self.notify(f"📖 {src}", timeout=3)
     def action_clear_filter(self):
         f=self.query_one("#books-filter",Input)
         if f.value: f.value=""; self.filter_books(Input.Changed(f,""))

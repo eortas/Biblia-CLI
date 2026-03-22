@@ -4,40 +4,46 @@ import httpx
 import html
 from .book_names import resolve_book
 
-async def get_daily_reading():
+async def get_daily_readings():
     """
-    Fetches the daily liturgical reading from Universalis.
-    Returns (book_id, chapter, source_text).
+    Fetches the daily liturgical readings from Universalis.
+    Returns a list of dicts: [{"label": "Evangelio", "book_id": 43, "chapter": 3, "source": "Juan 3"}, ...]
     """
     async with httpx.AsyncClient(timeout=10, follow_redirects=True) as c:
         r = await c.get("https://universalis.com/Europe.Spain/jsonpmass.js")
         r.raise_for_status()
-        txt = r.text
-        mj = re.search(r"universalisCallback\((.*)\);", txt, re.DOTALL)
-        if not mj: 
-            raise Exception("Error de formato en la respuesta de Universalis")
+        mj = re.search(r"universalisCallback\((.*)\);", r.text, re.DOTALL)
+        if not mj: raise Exception("Error de formato en la respuesta de Universalis")
         
         data = json.loads(mj.group(1))
-        # Try different sources in the mass data
-        src = data.get("Mass_R1", {}).get("source", "")
-        if not src: 
-            src = data.get("Mass_G", {}).get("source", "")
+        mapping = {
+            "Mass_R1": "Primera Lectura",
+            "Mass_R2": "Segunda Lectura",
+            "Mass_Ps": "Salmo Responsorial",
+            "Mass_G":  "Evangelio"
+        }
         
-        if not src:
-            raise Exception("No se encontró lectura del día en los datos recibidos")
+        results = []
+        for key, label in mapping.items():
+            src = data.get(key, {}).get("source", "")
+            if not src: continue
             
-        # Regex to match something like "1 Juan 3" or "Juan 3"
-        m = re.search(r"^([1-3]?\s?[a-zA-Z\sèéíóúÁÉÍÓÚñÑ]+)\s+(\d+)", src)
-        if not m: 
-            raise Exception(f"No se pudo parsear la referencia: {src}")
-        
-        bname, ch = m.group(1).strip(), int(m.group(2))
-        bid = resolve_book(bname)
-        if not bid: 
-            raise Exception(f"No se reconoce el libro: {bname}")
-        
-        # Clean up problematic characters for terminal display
-        src_clean = html.unescape(src)
-        src_clean = src_clean.replace('\u2010', '-').replace('\u2013', '-').replace('\u2014', '-')
-        
-        return bid, ch, src_clean
+            # Format: "1 Juan 3" or "Juan 3, 1-16"
+            m = re.search(r"^([1-3]?\s?[a-zA-Z\sèéíóúÁÉÍÓÚñÑ]+)\s+(\d+)", src)
+            if not m: continue
+            
+            bname, ch = m.group(1).strip(), int(m.group(2))
+            bid = resolve_book(bname)
+            if not bid: continue
+            
+            src_clean = html.unescape(src).replace('\u2010', '-').replace('\u2013', '-').replace('\u2014', '-')
+            results.append({
+                "label": label,
+                "book_id": bid,
+                "chapter": ch,
+                "source": src_clean
+            })
+            
+        if not results:
+            raise Exception("No se encontraron lecturas para hoy")
+        return results
