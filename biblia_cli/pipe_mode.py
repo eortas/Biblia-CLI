@@ -13,15 +13,16 @@ async def _run(args, translation):
     if not args or cmd in ("-h","--help","ayuda"):
         print("""
   biblia — modo consola
-    biblia                     → TUI interactivo
-    biblia juan 3:16           → versículo
-    biblia juan 3:14-17        → rango
-    biblia salmos 23           → capítulo completo
-    biblia dia                 → lectura del día
-    biblia buscar "texto"      → búsqueda
-    biblia libros              → 66 libros
-    biblia cache               → capítulos offline
-    biblia -t ARA juan 3:16   → otra traducción
+    biblia                              → TUI interactivo
+    biblia juan 3:16                    → versículo
+    biblia juan 3:14-17                 → rango
+    biblia salmos 23                    → capítulo completo
+    biblia dia                          → lectura del día
+    biblia buscar "texto"               → búsqueda
+    biblia preguntar "¿pregunta?"       → agente IA (LangGraph + Gemini)
+    biblia libros                       → 66 libros
+    biblia cache                        → capítulos offline
+    biblia -t ARA juan 3:16            → otra traducción
         """); return
     if cmd in ("libros","books","livros"):
         print(f"\n  Libros [{translation}]\n")
@@ -45,6 +46,27 @@ async def _run(args, translation):
                 print(f"  [{names.get(r['book'],str(r['book']))} {r['chapter']}:{r['verse']}]")
                 print(f"  {r['text']}\n")
         except Exception as e: print(f"  Error: {e}", file=sys.stderr)
+        return
+    if cmd in ("preguntar", "pregunta", "ask", "consultar"):
+        question = " ".join(args[1:]).strip("\"' ")
+        if not question:
+            print("  Uso: biblia preguntar \"¿Qué dice la Biblia sobre el amor?\"")
+            return
+        sep = "\u2500" * 48
+        q_short = question[:60] + ("\u2026" if len(question) > 60 else "")
+        print(f"\n  \u2726 Agente b\u00edblico IA  [{translation}]")
+        print(f"  {sep}")
+        print(f"  \u23f3 Procesando: {q_short}\n", flush=True)
+        try:
+            from .agent.runner import ask as agent_ask
+            answer = await agent_ask(question, translation)
+            for line in answer.splitlines():
+                print(f"  {line}" if line.strip() else "")
+            print()
+        except ValueError as e:
+            print(f"  \u274c {e}", file=sys.stderr)
+        except Exception as e:
+            print(f"  \u274c Error del agente: {e}", file=sys.stderr)
         return
     vs, ve = None, None
     if cmd in ("dia", "day", "lectura"):
